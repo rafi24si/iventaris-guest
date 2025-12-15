@@ -13,11 +13,21 @@ class KategoriAsetController extends Controller
      */
     public function index(Request $request)
     {
-        $filterableColumns = ['deskripsi'];
+        $kategoriAset = KategoriAset::query()
 
-        $kategoriAset = kategoriAset::filter($request, $filterableColumns)
-        ->orderBy('nama')
-        ->paginate(5);
+        // 🔍 SEARCH (nama & kode)
+            ->when($request->filled('search'), function ($q) use ($request) {
+                $search = $request->search;
+                $q->where(function ($sub) use ($search) {
+                    $sub->where('nama', 'like', "%{$search}%")
+                        ->orWhere('kode', 'like', "%{$search}%");
+                });
+            })
+
+            ->orderBy('nama')
+            ->paginate(5)
+            ->withQueryString(); // ⬅️ penting biar pagination bawa search
+
         return view('pages.kategoriAset.index', compact('kategoriAset'));
     }
 
@@ -35,15 +45,15 @@ class KategoriAsetController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama' => 'required|string|max:255',
-            'kode' => 'required|string|max:50|unique:kategori_aset',
-            'deskripsi' => 'nullable|string'
+            'nama'      => 'required|string|max:255',
+            'kode'      => 'required|string|max:50|unique:kategori_aset',
+            'deskripsi' => 'nullable|string',
         ]);
 
         kategoriAset::create($request->all());
 
         return redirect()->route('kategoriAset.index')
-                        ->with('success', 'Kategori aset berhasil ditambahkan!');
+            ->with('success', 'Kategori aset berhasil ditambahkan!');
     }
 
     /**
@@ -68,15 +78,15 @@ class KategoriAsetController extends Controller
     public function update(Request $request, kategoriAset $kategoriAset)
     {
         $request->validate([
-            'nama' => 'required|string|max:255',
-            'kode' => 'required|string|max:50|unique:kategori_aset,kode,' . $kategoriAset->kategori_id . ',kategori_id',
-            'deskripsi' => 'nullable|string'
+            'nama'      => 'required|string|max:255',
+            'kode'      => 'required|string|max:50|unique:kategori_aset,kode,' . $kategoriAset->kategori_id . ',kategori_id',
+            'deskripsi' => 'nullable|string',
         ]);
 
         $kategoriAset->update($request->all());
 
         return redirect()->route('kategoriAset.index')
-                        ->with('success', 'Kategori aset berhasil diupdate!');
+            ->with('success', 'Kategori aset berhasil diupdate!');
     }
 
     /**
@@ -87,6 +97,6 @@ class KategoriAsetController extends Controller
         $kategoriAset->delete();
 
         return redirect()->route('kategoriAset.index')
-                        ->with('success', 'Kategori aset berhasil dihapus!');
+            ->with('success', 'Kategori aset berhasil dihapus!');
     }
 }

@@ -1,4 +1,5 @@
 @extends('layouts.guest.app')
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 
 @section('content')
     <section class="pt-120 pb-80">
@@ -17,6 +18,48 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 </div>
             @endif
+
+            {{-- ===================== --}}
+            {{-- STATISTIK MUTASI ASET --}}
+            {{-- ===================== --}}
+            <div class="row mb-5">
+
+                <div class="col-md-3">
+                    <div class="stats-card">
+                        <div class="stats-number">{{ $mutasi->total() }}</div>
+                        <div class="stats-label">Total Mutasi</div>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="stats-card" style="background:linear-gradient(135deg,#43e97b,#38f9d7);">
+                        <div class="stats-number">
+                            {{ $mutasi->where('jenis_mutasi', 'Pemindahan')->count() }}
+                        </div>
+                        <div class="stats-label">Pemindahan</div>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="stats-card" style="background:linear-gradient(135deg,#f093fb,#f5576c);">
+                        <div class="stats-number">
+                            {{ $mutasi->where('jenis_mutasi', 'Penghapusan')->count() }}
+                        </div>
+                        <div class="stats-label">Penghapusan</div>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="stats-card" style="background:linear-gradient(135deg,#4facfe,#00f2fe);">
+                        <div class="stats-number">
+                            {{ $mutasi->unique('aset_id')->count() }}
+                        </div>
+                        <div class="stats-label">Aset Termutasi</div>
+                    </div>
+                </div>
+
+            </div>
+
 
             {{-- FILTER & SEARCH --}}
             <form method="GET" action="{{ route('mutasi.index') }}">
@@ -85,22 +128,41 @@
                             {{-- DETAIL --}}
                             <div class="warga-info">
 
+                                {{-- TANGGAL MUTASI --}}
                                 <div class="info-item">
-                                    <strong>Tanggal Mutasi</strong><br>
-                                    {{ \Carbon\Carbon::parse($m->tanggal)->format('d M Y') }}
+                                    <div class="info-icon">
+                                        <i class="bi bi-calendar-event"></i>
+                                    </div>
+                                    <div class="info-content">
+                                        <strong>Tanggal Mutasi</strong><br>
+                                        {{ \Carbon\Carbon::parse($m->tanggal)->format('d M Y') }}
+                                    </div>
                                 </div>
 
+                                {{-- JENIS MUTASI --}}
                                 <div class="info-item">
-                                    <strong>Jenis Mutasi</strong><br>
-                                    <span class="badge bg-primary">{{ $m->jenis_mutasi }}</span>
+                                    <div class="info-icon">
+                                        <i class="bi bi-shuffle"></i>
+                                    </div>
+                                    <div class="info-content">
+                                        <strong>Jenis Mutasi</strong><br>
+                                        <span class="badge bg-primary">{{ $m->jenis_mutasi }}</span>
+                                    </div>
                                 </div>
 
+                                {{-- KETERANGAN --}}
                                 <div class="info-item">
-                                    <strong>Keterangan</strong><br>
-                                    {{ $m->keterangan ?: '-' }}
+                                    <div class="info-icon">
+                                        <i class="bi bi-card-text"></i>
+                                    </div>
+                                    <div class="info-content">
+                                        <strong>Keterangan</strong><br>
+                                        {{ $m->keterangan ?: '-' }}
+                                    </div>
                                 </div>
 
                             </div>
+
 
                             {{-- ACTION --}}
                             <div class="action-buttons mt-3">

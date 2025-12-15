@@ -1,4 +1,6 @@
 @extends('layouts.guest.app')
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 
 @section('content')
     <section class="pt-120 pb-80">
@@ -71,8 +73,10 @@
                         <select name="kondisi" class="form-select">
                             <option value="">Semua Kondisi</option>
                             <option value="Baik" {{ request('kondisi') == 'Baik' ? 'selected' : '' }}>Baik</option>
-                            <option value="Rusak Ringan" {{ request('kondisi') == 'Rusak Ringan' ? 'selected' : '' }}>Rusak Ringan</option>
-                            <option value="Rusak Berat" {{ request('kondisi') == 'Rusak Berat' ? 'selected' : '' }}>Rusak Berat</option>
+                            <option value="Rusak Ringan" {{ request('kondisi') == 'Rusak Ringan' ? 'selected' : '' }}>Rusak
+                                Ringan</option>
+                            <option value="Rusak Berat" {{ request('kondisi') == 'Rusak Berat' ? 'selected' : '' }}>Rusak
+                                Berat</option>
                         </select>
                     </div>
 
@@ -111,9 +115,10 @@
                         $placeholder = asset('assets-guest/images/placeholder-aset.png');
 
                         // ✅ Cek file foto benar-benar ada
-                        $fotoPath = $foto && file_exists(public_path('storage/' . $foto))
-                            ? asset('storage/' . $foto)
-                            : $placeholder;
+                        $fotoPath =
+                            $foto && file_exists(public_path('storage/' . $foto))
+                                ? asset('storage/' . $foto)
+                                : $placeholder;
                     @endphp
 
                     <div class="col-xl-4 col-lg-6 col-md-6 mb-4">
@@ -121,8 +126,7 @@
 
                             {{-- FOTO --}}
                             <div class="warga-header text-center">
-                                <img src="{{ $fotoPath }}"
-                                    class="img-fluid rounded mb-3"
+                                <img src="{{ $fotoPath }}" class="img-fluid rounded mb-3"
                                     style="height:160px; width:100%; object-fit:cover;">
                                 <h5>{{ $item->nama_aset }}</h5>
                                 <p class="opacity-75">Kode: {{ $item->kode_aset }}</p>
@@ -130,19 +134,42 @@
 
                             {{-- DETAIL --}}
                             <div class="warga-info">
-                                <div class="info-item">
-                                    <strong>Kategori</strong><br>
-                                    {{ $item->kategoriAset->nama ?? '-' }}
+
+                                {{-- KATEGORI --}}
+                                <div class="info-item d-flex align-items-start gap-2 mb-2">
+                                    <div class="info-icon">
+                                        <i class="bi bi-tags-fill"></i>
+                                    </div>
+                                    <div class="info-content">
+                                        <strong>Kategori</strong><br>
+                                        <span>{{ $item->kategoriAset->nama ?? '-' }}</span>
+                                    </div>
                                 </div>
-                                <div class="info-item">
-                                    <strong>Nilai</strong><br>
-                                    Rp {{ number_format($item->nilai_perolehan, 0, ',', '.') }}
+
+                                {{-- NILAI --}}
+                                <div class="info-item d-flex align-items-start gap-2 mb-2">
+                                    <div class="info-icon">
+                                        <i class="bi bi-cash-stack"></i>
+                                    </div>
+                                    <div class="info-content">
+                                        <strong>Nilai</strong><br>
+                                        <span>Rp {{ number_format($item->nilai_perolehan, 0, ',', '.') }}</span>
+                                    </div>
                                 </div>
-                                <div class="info-item">
-                                    <strong>Tanggal</strong><br>
-                                    {{ \Carbon\Carbon::parse($item->tgl_perolehan)->format('d M Y') }}
+
+                                {{-- TANGGAL --}}
+                                <div class="info-item d-flex align-items-start gap-2">
+                                    <div class="info-icon">
+                                        <i class="bi bi-calendar-event"></i>
+                                    </div>
+                                    <div class="info-content">
+                                        <strong>Tanggal</strong><br>
+                                        <span>{{ \Carbon\Carbon::parse($item->tgl_perolehan)->format('d M Y') }}</span>
+                                    </div>
                                 </div>
+
                             </div>
+
 
                             {{-- BUTTONS --}}
                             <div class="action-buttons text-center">

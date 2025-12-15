@@ -71,14 +71,15 @@
                 </div>
 
                 <div class="table-responsive">
-                    <form method="GET" action="{{ route('warga.index') }}"
-                        class="mb-3">
+                    <form method="GET" action="{{ route('warga.index') }}" class="mb-3">
                         <div class="row">
                             <div class="col-md-2">
                                 <select name="jenis_kelamin" class="form-select" onchange="this.form.submit()">
                                     <option value="">All</option>
-                                    <option value="Laki-Laki" {{ request('jenis_kelamin') == 'Laki-Laki' ? 'selected' : '' }}>Laki-Laki</option>
-                                    <option value="Perempuan" {{ request('jenis_kelamin') == 'Perempuan' ? 'selected' : '' }}>Perempuan
+                                    <option value="Laki-Laki"
+                                        {{ request('jenis_kelamin') == 'Laki-Laki' ? 'selected' : '' }}>Laki-Laki</option>
+                                    <option value="Perempuan"
+                                        {{ request('jenis_kelamin') == 'Perempuan' ? 'selected' : '' }}>Perempuan
                                     </option>
                                 </select>
                             </div>
@@ -102,55 +103,57 @@
                             </div>
 
                             <div class="warga-info">
-                                <div class="info-item">
+
+                                <div class="info-item d-flex align-items-start">
                                     <div class="info-icon">
-                                        <i class="lni lni-venus-mars"></i>
+                                        <i class="lni lni-user"></i>
                                     </div>
                                     <div class="info-content">
-                                        <strong>Jenis Kelamin</strong><br>
-                                        {{ $item->jenis_kelamin }}
+                                        <small class="text-muted">Jenis Kelamin</small><br>
+                                        <strong>{{ $item->jenis_kelamin }}</strong>
                                     </div>
                                 </div>
 
-                                <div class="info-item">
+                                <div class="info-item d-flex align-items-start">
                                     <div class="info-icon">
-                                        <i class="lni lni-heaven"></i>
+                                        <i class="lni lni-star"></i>
                                     </div>
                                     <div class="info-content">
-                                        <strong>Agama</strong><br>
-                                        {{ $item->agama }}
+                                        <small class="text-muted">Agama</small><br>
+                                        <strong>{{ $item->agama }}</strong>
                                     </div>
                                 </div>
 
-                                <div class="info-item">
+                                <div class="info-item d-flex align-items-start">
                                     <div class="info-icon">
                                         <i class="lni lni-briefcase"></i>
                                     </div>
                                     <div class="info-content">
-                                        <strong>Pekerjaan</strong><br>
-                                        {{ $item->pekerjaan ?: 'Tidak bekerja' }}
+                                        <small class="text-muted">Pekerjaan</small><br>
+                                        <strong>{{ $item->pekerjaan ?: 'Tidak bekerja' }}</strong>
                                     </div>
                                 </div>
 
-                                <div class="info-item">
+                                <div class="info-item d-flex align-items-start">
                                     <div class="info-icon">
                                         <i class="lni lni-phone"></i>
                                     </div>
                                     <div class="info-content">
-                                        <strong>Telepon</strong><br>
-                                        {{ $item->telp ?: '-' }}
+                                        <small class="text-muted">Telepon</small><br>
+                                        <strong>{{ $item->telp ?: '-' }}</strong>
                                     </div>
                                 </div>
 
-                                <div class="info-item">
+                                <div class="info-item d-flex align-items-start">
                                     <div class="info-icon">
                                         <i class="lni lni-envelope"></i>
                                     </div>
                                     <div class="info-content">
-                                        <strong>Email</strong><br>
-                                        {{ $item->email ?: '-' }}
+                                        <small class="text-muted">Email</small><br>
+                                        <strong>{{ $item->email ?: '-' }}</strong>
                                     </div>
                                 </div>
+
                             </div>
 
 

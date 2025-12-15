@@ -86,12 +86,15 @@
                                     @php
                                         $user = \App\Models\User::find(session('user_id'));
 
-                                        $photoPath =
+                                        $photoPath = asset('assets-guest/images/placeholder-aset.png');
+
+                                        if (
                                             $user &&
                                             $user->profile_photo &&
                                             file_exists(public_path('storage/' . $user->profile_photo))
-                                                ? asset('storage/' . $user->profile_photo)
-                                                : asset('assets-guest/images/default-avatar.png');
+                                        ) {
+                                            $photoPath = asset('storage/' . $user->profile_photo);
+                                        }
                                     @endphp
 
                                     <li class="nav-item dropdown">
@@ -136,6 +139,7 @@
                                         <a href="{{ url('/auth') }}" class="nav-link">Login</a>
                                     </li>
                                 @endif
+
 
                             </ul>
                         </div>

@@ -1,4 +1,5 @@
 @extends('layouts.guest.app')
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 
 @section('content')
     <section class="pt-120 pb-80">
@@ -133,29 +134,55 @@
                             {{-- INFO --}}
                             <div class="warga-info">
 
+                                {{-- LOKASI --}}
                                 <div class="info-item">
-                                    <strong>Lokasi</strong><br>
-                                    {{ $lokasi->lokasi_text ?? '-' }}
+                                    <div class="info-icon">
+                                        <i class="bi bi-geo-alt"></i>
+                                    </div>
+                                    <div class="info-content">
+                                        <strong>Lokasi Aset</strong><br>
+                                        {{ $lokasi->lokasi_text ?? '-' }}
+                                    </div>
                                 </div>
 
+                                {{-- RT / RW --}}
                                 <div class="info-item">
-                                    <strong>RT / RW</strong><br>
-                                    RT {{ $lokasi->rt }} / RW {{ $lokasi->rw }}
+                                    <div class="info-icon">
+                                        <i class="bi bi-building"></i>
+                                    </div>
+                                    <div class="info-content">
+                                        <strong>RT / RW</strong><br>
+                                        RT {{ $lokasi->rt }} / RW {{ $lokasi->rw }}
+                                    </div>
                                 </div>
 
+                                {{-- KETERANGAN --}}
                                 <div class="info-item">
-                                    <strong>Keterangan</strong><br>
-                                    {{ $lokasi->keterangan ?? '-' }}
+                                    <div class="info-icon">
+                                        <i class="bi bi-file-text"></i>
+                                    </div>
+                                    <div class="info-content">
+                                        <strong>Keterangan</strong><br>
+                                        {{ $lokasi->keterangan ?? '-' }}
+                                    </div>
                                 </div>
 
-                                {{-- FOTO --}}
+                                {{-- FOTO / DENAH --}}
                                 <div class="info-item">
-                                    <strong>Foto / Denah</strong><br>
-                                    <img src="{{ $fotoPath }}" class="img-thumbnail mt-2"
-                                        style="height:150px;width:100%;object-fit:cover;border-radius:10px;">
+                                    <div class="info-icon">
+                                        <i class="bi bi-image"></i>
+                                    </div>
+                                    <div class="info-content">
+                                        <strong>Foto / Denah</strong><br>
+                                        <img src="{{ $fotoPath }}" class="img-thumbnail mt-2"
+                                            style="height:150px;width:100%;object-fit:cover;border-radius:10px;">
+                                    </div>
                                 </div>
 
                             </div>
+
+
+
 
                             {{-- ACTION --}}
                             <div class="action-buttons">

@@ -51,30 +51,35 @@
                 </div>
             </div>
 
-            <div class="row mb-4 align-items-center">
-                <div class="col-md-6">
-                    <a href="{{ route('kategoriAset.create') }}" class="main-btn btn-hover btn-sm">
-                        <i class="fas fa-plus me-1"></i>Tambah Kategori Aset
-                    </a>
-                </div>
-                <div class="col-md-6">
-                    <div class="search-box">
-                        <form method="GET" action="{{ route('kategoriAset.index') }}">
-                            <div class="row align-items-center">
-                                <div class="col-md-6">
-                                    <h5 class="mb-0">Cari Kategori Aset</h5>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" name="search"
-                                            placeholder="Ketik nama atau kode..." value="{{ request('search') }}">
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
+            <form method="GET" action="{{ route('kategoriAset.index') }}">
+                <div class="row mb-4 align-items-end">
+
+                    {{-- TOMBOL TAMBAH --}}
+                    <div class="col-md-3">
+                        <a href="{{ route('kategoriAset.create') }}" class="main-btn btn-hover btn-sm">
+                            <i class="fas fa-plus me-1"></i> Tambah Kategori Aset
+                        </a>
                     </div>
+
+                    {{-- SEARCH --}}
+                    <div class="col-md-6">
+                        <input type="text" name="search" class="form-control"
+                            placeholder="Cari nama atau kode kategori..." value="{{ request('search') }}">
+                    </div>
+
+                    {{-- BUTTON --}}
+                    <div class="col-md-3 text-end">
+                        <button class="btn btn-primary btn-sm">
+                            <i class="fas fa-search me-1"></i> Cari
+                        </button>
+                        <a href="{{ route('kategoriAset.index') }}" class="btn btn-secondary btn-sm">
+                            <i class="fas fa-sync"></i> Reset
+                        </a>
+                    </div>
+
                 </div>
-            </div>
+            </form>
+
 
             <div class="table-responsive">
                 <form method="GET" action="{{ route('kategoriAset.index') }}" class="mb-3">
