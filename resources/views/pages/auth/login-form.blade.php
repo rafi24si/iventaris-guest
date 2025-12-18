@@ -14,22 +14,30 @@
 
     <style>
         body {
-            background: linear-gradient(135deg, #1abc9c 0%, #3498db 100%);
             min-height: 100vh;
+            font-family: 'Segoe UI', sans-serif;
+            background:
+                linear-gradient(
+                    rgba(20, 160, 133, 0.85),
+                    rgba(30, 190, 110, 0.85)
+                ),
+                url("https://images.unsplash.com/photo-1584515933487-779824d29309");
+            background-size: cover;
+            background-position: center;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-family: 'Segoe UI', sans-serif;
         }
 
         .login-wrapper {
             width: 100%;
             max-width: 420px;
+            z-index: 2;
         }
 
         .logo-box {
             text-align: center;
-            margin-bottom: 1rem;
+            margin-bottom: 1.2rem;
         }
 
         .logo-box img {
@@ -38,56 +46,73 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to   { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .login-container {
-            background: white;
-            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.96);
+            border-radius: 18px;
             padding: 2.8rem;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.25);
         }
 
         .login-title {
             font-weight: 700;
-            color: #2c3e50;
+            color: #1e8449;
             text-align: center;
             margin-bottom: 1.8rem;
         }
 
+        .form-label {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
         .form-control {
-            border-radius: 8px;
-            padding: 0.75rem 1rem;
+            border-radius: 10px;
+            padding: 0.8rem 1rem;
         }
 
         .form-control:focus {
-            border-color: #3498db;
-            box-shadow: 0 0 0 0.2rem rgba(52,152,219,0.25);
+            border-color: #2ecc71;
+            box-shadow: 0 0 0 0.2rem rgba(46, 204, 113, 0.25);
         }
 
         .btn-login {
-            background: #3498db;
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
             width: 100%;
-            padding: 0.75rem;
+            padding: 0.8rem;
             color: white;
             font-weight: 600;
-            border-radius: 8px;
+            border-radius: 10px;
             border: none;
+            transition: 0.3s;
         }
 
         .btn-login:hover {
-            background: #2980b9;
+            background: linear-gradient(135deg, #1e8449, #27ae60);
+            transform: translateY(-1px);
         }
 
         .register-link a {
-            color: #3498db;
-            font-weight: bold;
+            color: #27ae60;
+            font-weight: 700;
             text-decoration: none;
         }
 
         .register-link a:hover {
             text-decoration: underline;
+        }
+
+        .alert {
+            border-radius: 10px;
         }
     </style>
 </head>
@@ -96,16 +121,19 @@
 
     <div class="login-wrapper">
 
-        {{-- LOGO (seperti di INDEX) --}}
+        {{-- LOGO --}}
         <div class="logo-box">
             <a href="{{ route('dashboard') }}" class="navbar-brand mx-auto text-center">
-                <img src="{{ asset('assets-guest/images/logo/unnamed.png') }}" alt="Logo">
+                <img src="{{ asset('assets-guest/images/logo.png') }}" alt="Logo">
             </a>
         </div>
 
         <div class="login-container">
 
-            <h2 class="login-title">Masuk ke Sistem Inventaris</h2>
+            <h2 class="login-title">
+                <i class="fas fa-leaf me-2"></i>
+                Login Sistem Inventaris
+            </h2>
 
             {{-- ALERT SUCCESS --}}
             @if (session('success'))
@@ -133,13 +161,17 @@
                 @csrf
 
                 <div class="mb-3">
-                    <label class="form-label"><i class="fas fa-envelope me-2"></i>Email</label>
+                    <label class="form-label">
+                        <i class="fas fa-envelope me-2 text-success"></i>Email
+                    </label>
                     <input type="email" name="email" class="form-control"
                            value="{{ old('email') }}" placeholder="Masukkan email" required>
                 </div>
 
                 <div class="mb-4">
-                    <label class="form-label"><i class="fas fa-lock me-2"></i>Password</label>
+                    <label class="form-label">
+                        <i class="fas fa-lock me-2 text-success"></i>Password
+                    </label>
                     <input type="password" name="password" class="form-control"
                            placeholder="Masukkan password" required>
                 </div>
@@ -149,7 +181,9 @@
                 </button>
 
                 <div class="text-center mt-4 register-link">
-                    <p>Belum punya akun? <a href="/auth/register">Daftar di sini</a></p>
+                    <p>Belum punya akun?
+                        <a href="/auth/register">Daftar di sini</a>
+                    </p>
                 </div>
 
             </form>
@@ -161,5 +195,4 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
-
 </html>

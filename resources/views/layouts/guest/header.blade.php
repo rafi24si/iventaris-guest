@@ -8,7 +8,7 @@
 
                         {{-- LOGO --}}
                         <a href="{{ route('dashboard') }}" class="navbar-brand mx-auto text-center">
-                            <img src="{{ asset('assets-guest/images/logo/unnamed.png') }}" alt="Logo" height="45">
+                            <img src="{{ asset('assets-guest/images/logo.png') }}" alt="Logo" height="45">
                         </a>
 
                         {{-- MOBILE BUTTON --}}
@@ -23,61 +23,92 @@
                             <ul class="navbar-nav text-center">
 
                                 {{-- MENU --}}
-                                <li class="nav-item">
-                                    <a href="{{ route('dashboard') }}"
-                                        class="nav-link {{ request()->is('dashboard') ? 'active' : '' }}">
-                                        Tentang
-                                    </a>
-                                </li>
+                                <ul class="navbar-nav d-flex align-items-center nav-icon-style">
 
-                                <li class="nav-item">
-                                    <a href="{{ route('warga.index') }}"
-                                        class="nav-link {{ request()->is('warga*') ? 'active' : '' }}">
-                                        Warga
-                                    </a>
-                                </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('dashboard') }}"
+                                            class="nav-link nav-icon {{ request()->is('dashboard') ? 'active' : '' }}">
+                                            <i class="fas fa-info-circle"></i>
+                                            <span>Tentang</span>
+                                        </a>
+                                    </li>
 
-                                <li class="nav-item">
-                                    <a href="{{ route('user.index') }}"
-                                        class="nav-link {{ request()->is('user*') ? 'active' : '' }}">
-                                        User
-                                    </a>
-                                </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('warga.index') }}"
+                                            class="nav-link nav-icon {{ request()->is('warga*') ? 'active' : '' }}">
+                                            <i class="fas fa-users"></i>
+                                            <span>Warga</span>
+                                        </a>
+                                    </li>
 
-                                <li class="nav-item">
-                                    <a href="{{ route('kategoriAset.index') }}"
-                                        class="nav-link {{ request()->is('kategoriAset*') ? 'active' : '' }}">
-                                        Kategori Aset
-                                    </a>
-                                </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('user.index') }}"
+                                            class="nav-link nav-icon {{ request()->is('user*') ? 'active' : '' }}">
+                                            <i class="fas fa-user-shield"></i>
+                                            <span>User</span>
+                                        </a>
+                                    </li>
 
-                                <li class="nav-item">
-                                    <a href="{{ route('aset.index') }}"
-                                        class="nav-link {{ request()->is('aset*') ? 'active' : '' }}">
-                                        Aset
-                                    </a>
-                                </li>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link nav-icon dropdown-toggle {{ request()->is('posyandu*') ? 'active' : '' }}"
+                                            href="#" data-bs-toggle="dropdown">
+                                            <i class="fas fa-clinic-medical"></i>
+                                            <span>Posyandu</span>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="{{ route('posyandu.index') }}">Data
+                                                    Posyandu</a></li>
+                                            <li><a class="dropdown-item" href="{{ route('posyandu.create') }}">Tambah
+                                                    Posyandu</a></li>
+                                        </ul>
+                                    </li>
 
-                                <li class="nav-item">
-                                    <a href="{{ route('lokasi-aset.index') }}"
-                                        class="nav-link {{ request()->is('lokasi-aset*') ? 'active' : '' }}">
-                                        Lokasi Aset
-                                    </a>
-                                </li>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link nav-icon dropdown-toggle {{ request()->is('kader-posyandu*') ? 'active' : '' }}"
+                                            href="#" data-bs-toggle="dropdown">
+                                            <i class="fas fa-user-nurse"></i>
+                                            <span>Kader</span>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item"
+                                                    href="{{ route('kader-posyandu.index') }}">Data Kader</a></li>
+                                            <li><a class="dropdown-item"
+                                                    href="{{ route('kader-posyandu.create') }}">Tambah Kader</a></li>
+                                        </ul>
+                                    </li>
 
-                                <li class="nav-item">
-                                    <a href="{{ route('pemeliharaan.index') }}"
-                                        class="nav-link {{ request()->is('pemeliharaan*') ? 'active' : '' }}">
-                                        Pemeliharaan
-                                    </a>
-                                </li>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link nav-icon dropdown-toggle {{ request()->is('jadwal-posyandu*') ? 'active' : '' }}"
+                                            href="#" data-bs-toggle="dropdown">
+                                            <i class="fas fa-calendar-alt"></i>
+                                            <span>Jadwal</span>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item"
+                                                    href="{{ route('jadwal-posyandu.index') }}">Data Jadwal</a></li>
+                                            <li><a class="dropdown-item"
+                                                    href="{{ route('jadwal-posyandu.create') }}">Tambah Jadwal</a></li>
+                                        </ul>
+                                    </li>
 
-                                <li class="nav-item">
-                                    <a href="{{ route('mutasi.index') }}"
-                                        class="nav-link {{ request()->is('mutasi*') ? 'active' : '' }}">
-                                        Mutasi
-                                    </a>
-                                </li>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link nav-icon dropdown-toggle {{ request()->is('catatan-imunisasi*') ? 'active' : '' }}"
+                                            href="#" data-bs-toggle="dropdown">
+                                            <i class="fas fa-syringe"></i>
+                                            <span>Imunisasi</span>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item"
+                                                    href="{{ route('catatan-imunisasi.index') }}">Data Imunisasi</a>
+                                            </li>
+                                            <li><a class="dropdown-item"
+                                                    href="{{ route('catatan-imunisasi.create') }}">Tambah Imunisasi</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+
+                                </ul>
+
 
                                 {{-- ========================== --}}
                                 {{-- PROFILE DROPDOWN --}}
@@ -150,4 +181,7 @@
             </div>
         </div>
     </div>
+
+
+
 </header>

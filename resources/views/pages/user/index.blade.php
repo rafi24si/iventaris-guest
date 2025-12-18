@@ -1,163 +1,196 @@
 @extends('layouts.guest.app')
 
 @section('content')
-    <section class="pt-120 pb-80">
-        <div class="container">
 
-            {{-- TITLE --}}
-            <div class="section-title text-center mb-50">
-                <h2>Data User Sistem</h2>
-                <p>Manajemen pengguna sistem</p>
+{{-- HEADER --}}
+<section class="pt-80 pb-60"
+    style="background: linear-gradient(135deg,#1e8449,#27ae60);">
+    <div class="container text-white d-flex justify-content-between align-items-center">
+        <div>
+            <h2 class="fw-bold mb-2">
+                <i class="fas fa-users me-2"></i>
+                Data User Sistem
+            </h2>
+            <p class="mb-0">Manajemen pengguna sistem</p>
+        </div>
+
+        <a href="{{ route('user.create') }}" class="btn btn-light fw-semibold">
+            <i class="fas fa-user-plus text-success me-1"></i> Tambah User
+        </a>
+    </div>
+</section>
+
+{{-- CONTENT --}}
+<section class="pt-60 pb-100" style="background:#f0fdf4;">
+    <div class="container">
+
+        {{-- FILTER --}}
+        <form method="GET" action="{{ route('user.index') }}" class="row g-2 mb-4">
+
+            <div class="col-md-4">
+                <input type="text" name="search" class="form-control"
+                       placeholder="Cari nama / email"
+                       value="{{ request('search') }}">
             </div>
 
-            {{-- FILTER & SEARCH --}}
-            <form method="GET" action="{{ route('user.index') }}">
-                <div class="row mb-4 align-items-end">
+            <div class="col-md-3">
+                <select name="role" class="form-select">
+                    <option value="">Semua Role</option>
+                    <option value="admin" {{ request('role')=='admin'?'selected':'' }}>Admin</option>
+                    <option value="petugas" {{ request('role')=='petugas'?'selected':'' }}>Petugas</option>
+                    <option value="user" {{ request('role')=='user'?'selected':'' }}>User</option>
+                </select>
+            </div>
 
-                    <div class="col-md-3">
-                        <a href="{{ route('user.create') }}" class="main-btn btn-hover btn-sm">
-                            <i class="fas fa-user-plus me-1"></i> Tambah User
-                        </a>
+            <div class="col-md-3">
+                <select name="email_verified_at" class="form-select">
+                    <option value="">Status Email</option>
+                    <option value="verified" {{ request('email_verified_at')=='verified'?'selected':'' }}>
+                        Terverifikasi
+                    </option>
+                    <option value="unverified" {{ request('email_verified_at')=='unverified'?'selected':'' }}>
+                        Belum Verifikasi
+                    </option>
+                </select>
+            </div>
+
+            <div class="col-md-2 d-grid">
+                <button class="btn btn-success">
+                    <i class="fas fa-filter me-1"></i> Filter
+                </button>
+            </div>
+
+        </form>
+
+        {{-- CARD LIST --}}
+        <div class="row g-4">
+
+            @forelse ($dataUser as $user)
+            <div class="col-xl-4 col-lg-6 col-md-6">
+
+                <div class="card user-card h-100 border-0 shadow-sm">
+
+                    {{-- HEADER --}}
+                    <div class="user-header text-center">
+                        <img src="{{ $user->getPhotoUrl() }}"
+                             class="rounded-circle mb-3 user-avatar">
+
+                        <h5 class="mb-1 fw-bold">{{ $user->name }}</h5>
+                        <p class="small opacity-75 mb-1">{{ $user->email }}</p>
+
+                        <span class="badge bg-success text-uppercase">
+                            <i class="fas fa-user-shield me-1"></i>
+                            {{ $user->role ?? 'user' }}
+                        </span>
                     </div>
 
-                    <div class="col-md-3">
-                        <input type="text" name="search" class="form-control" placeholder="Cari nama / email..."
-                            value="{{ request('search') }}">
-                    </div>
+                    {{-- INFO --}}
+                    <div class="card-body pt-3">
 
-                    <div class="col-md-3">
-                        <select name="role" class="form-select">
-                            <option value="">Semua Role</option>
-                            <option value="admin" {{ request('role') == 'admin' ? 'selected' : '' }}>Admin</option>
-                            <option value="petugas" {{ request('role') == 'petugas' ? 'selected' : '' }}>Petugas</option>
-                            <option value="user" {{ request('role') == 'user' ? 'selected' : '' }}>User</option>
-                        </select>
-                    </div>
-
-                    <div class="col-md-3">
-                        <select name="email_verified_at" class="form-select">
-                            <option value="">Status Email</option>
-                            <option value="verified" {{ request('email_verified_at') == 'verified' ? 'selected' : '' }}>
-                                Terverifikasi
-                            </option>
-                            <option value="unverified" {{ request('email_verified_at') == 'unverified' ? 'selected' : '' }}>
-                                Belum Verifikasi
-                            </option>
-                        </select>
-                    </div>
-
-                    <div class="col-12 mt-2 text-end">
-                        <button class="btn btn-primary btn-sm">
-                            <i class="fas fa-search"></i> Cari
-                        </button>
-                        <a href="{{ route('user.index') }}" class="btn btn-secondary btn-sm">
-                            <i class="fas fa-sync"></i> Reset
-                        </a>
-                    </div>
-
-                </div>
-            </form>
-
-            {{-- CARD LIST --}}
-            <div class="row">
-
-                @forelse ($dataUser as $user)
-                    <div class="col-xl-4 col-lg-6 col-md-6 mb-4">
-                        <div class="card warga-card">
-
-                            {{-- HEADER --}}
-                            <div class="warga-header text-center">
-                                <img src="{{ $user->getPhotoUrl() }}" class="rounded-circle mb-3"
-                                    style="width:90px;height:90px;object-fit:cover;">
-
-                                <h5 class="mb-1">{{ $user->name }}</h5>
-                                <p class="opacity-75 mb-0">{{ $user->email }}</p>
-
-                                <span class="badge bg-info text-uppercase mt-2">
-                                    <i class="fas fa-user-shield me-1"></i>
-                                    {{ $user->role ?? 'user' }}
-                                </span>
+                        <div class="info-row">
+                            <i class="fas fa-calendar-alt text-success"></i>
+                            <div>
+                                <strong>Bergabung</strong><br>
+                                {{ $user->created_at->format('d M Y') }}
                             </div>
+                        </div>
 
-                            {{-- INFO --}}
-                            <div class="warga-info">
-
-                                <div class="info-item">
-                                    <div class="info-icon">
-                                        <i class="fas fa-calendar-alt"></i>
-                                    </div>
-                                    <div class="info-content">
-                                        <strong>Bergabung</strong><br>
-                                        {{ $user->created_at->format('d M Y') }}
-                                    </div>
-                                </div>
-
-                                <div class="info-item">
-                                    <div class="info-icon">
-                                        <i class="fas fa-envelope-circle-check"></i>
-                                    </div>
-                                    <div class="info-content">
-                                        <strong>Status Email</strong><br>
-                                        @if ($user->email_verified_at)
-                                            <span class="text-success">Terverifikasi</span>
-                                        @else
-                                            <span class="text-danger">Belum Verifikasi</span>
-                                        @endif
-                                    </div>
-                                </div>
-
+                        <div class="info-row">
+                            <i class="fas fa-envelope-circle-check text-success"></i>
+                            <div>
+                                <strong>Status Email</strong><br>
+                                @if($user->email_verified_at)
+                                    <span class="text-success">Terverifikasi</span>
+                                @else
+                                    <span class="text-danger">Belum Verifikasi</span>
+                                @endif
                             </div>
+                        </div>
 
-                            {{-- ACTION BUTTON --}}
-                            <div class="action-buttons mt-3">
-                                <div class="row g-2">
+                    </div>
 
-                                    <div class="col-12">
-                                        <a href="{{ route('user.show', $user->id) }}"
-                                            class="btn btn-info btn-sm w-100 text-white">
-                                            <i class="fas fa-eye me-1"></i> Detail
-                                        </a>
-                                    </div>
+                    {{-- ACTION --}}
+                    <div class="card-footer bg-white border-0 px-3 pb-3">
+                        <div class="d-flex gap-2">
 
-                                    <div class="col-6">
-                                        <a href="{{ route('user.edit', $user->id) }}"
-                                            class="btn btn-warning btn-sm w-100 text-white">
-                                            <i class="fas fa-edit me-1"></i> Edit
-                                        </a>
-                                    </div>
+                            <a href="{{ route('user.show',$user->id) }}"
+                               class="btn btn-sm btn-outline-success w-100">
+                                <i class="fas fa-eye me-1"></i> Detail
+                            </a>
 
-                                    <div class="col-6">
-                                        <form action="{{ route('user.destroy', $user->id) }}" method="POST"
-                                            onsubmit="return confirm('Yakin hapus user {{ $user->name }}?')">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button class="btn btn-danger btn-sm w-100">
-                                                <i class="fas fa-trash me-1"></i> Hapus
-                                            </button>
-                                        </form>
-                                    </div>
+                            <a href="{{ route('user.edit',$user->id) }}"
+                               class="btn btn-sm btn-outline-primary w-100">
+                                <i class="fas fa-edit me-1"></i> Edit
+                            </a>
 
-                                </div>
-                            </div>
+                            <form method="POST"
+                                  action="{{ route('user.destroy',$user->id) }}"
+                                  onsubmit="return confirm('Hapus user {{ $user->name }}?')"
+                                  class="w-100">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn btn-sm btn-outline-danger w-100">
+                                    <i class="fas fa-trash me-1"></i> Hapus
+                                </button>
+                            </form>
 
                         </div>
                     </div>
-                @empty
-                    <div class="col-12 text-center text-muted">
-                        <h4>Belum ada data user</h4>
-                    </div>
-                @endforelse
+
+                </div>
 
             </div>
-
-            {{-- PAGINATION --}}
-            <div class="mt-3">
-                {{ $dataUser->links('pagination::bootstrap-5') }}
-            </div>
+            @empty
+                <div class="col-12 text-center text-muted py-5">
+                    <i class="fas fa-users fa-3x mb-3"></i>
+                    <h5>Belum ada data user</h5>
+                </div>
+            @endforelse
 
         </div>
 
-        {{-- FONT AWESOME --}}
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    </section>
+        {{-- PAGINATION --}}
+        <div class="mt-5 d-flex justify-content-center">
+            {{ $dataUser->links('pagination::bootstrap-5') }}
+        </div>
+
+    </div>
+</section>
+
+{{-- STYLE --}}
+<style>
+.user-card {
+    border-top: 5px solid #27ae60;
+    border-radius: 14px;
+    transition: all .35s ease;
+}
+
+.user-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0,0,0,.15);
+}
+
+.user-header {
+    background: linear-gradient(135deg,#1e8449,#27ae60);
+    color: white;
+    padding: 30px 20px;
+    border-top-left-radius: 14px;
+    border-top-right-radius: 14px;
+}
+
+.user-avatar {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border: 3px solid #fff;
+}
+
+.info-row {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 12px;
+    font-size: 14px;
+}
+</style>
+
 @endsection

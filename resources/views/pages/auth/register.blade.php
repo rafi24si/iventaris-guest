@@ -4,33 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daftar Akun - Sistem Inventaris</title>
+
+    {{-- BOOTSTRAP --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    {{-- ICON --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         body {
-            background: linear-gradient(135deg, #12c2e9 0%, #c471ed 50%, #f64f59 100%);
             min-height: 100vh;
+            font-family: 'Poppins', sans-serif;
+            background:
+                linear-gradient(
+                    rgba(20, 160, 133, 0.85),
+                    rgba(30, 190, 110, 0.85)
+                ),
+                url("https://images.unsplash.com/photo-1584515933487-779824d29309");
+            background-size: cover;
+            background-position: center;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-family: Poppins, sans-serif;
-            animation: bgMove 10s infinite alternate ease-in-out;
-        }
-
-        @keyframes bgMove {
-            0% { background-position: left; }
-            100% { background-position: right; }
         }
 
         .register-container {
-            background: white;
+            background: rgba(255, 255, 255, 0.97);
             border-radius: 18px;
             padding: 3rem;
             width: 100%;
-            max-width: 500px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.25);
-            animation: fadeIn 1s ease-out, float 4s ease-in-out infinite;
+            max-width: 520px;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.3);
+            animation: fadeIn 0.9s ease-out;
         }
 
         @keyframes fadeIn {
@@ -38,14 +43,9 @@
             to   { opacity: 1; transform: translateY(0); }
         }
 
-        @keyframes float {
-            0%,100% { transform: translateY(0); }
-            50%     { transform: translateY(-10px); }
-        }
-
         .register-icon {
             font-size: 4rem;
-            color: #f64f59;
+            color: #27ae60;
             animation: pulse 1.8s infinite ease-in-out;
         }
 
@@ -56,23 +56,29 @@
 
         .register-title {
             font-weight: 700;
+            color: #1e8449;
+            margin-top: 0.5rem;
+        }
+
+        .form-label {
+            font-weight: 600;
             color: #2c3e50;
         }
 
         .form-control, .form-select {
-            padding: .75rem 1.2rem;
+            padding: .8rem 1.2rem;
             border-radius: 10px;
             border: 1px solid #dcdcdc;
             transition: 0.3s;
         }
 
         .form-control:focus, .form-select:focus {
-            border-color: #f64f59;
-            box-shadow: 0 0 8px rgba(246,79,89,0.5);
+            border-color: #2ecc71;
+            box-shadow: 0 0 8px rgba(46, 204, 113, 0.4);
         }
 
         .btn-register-custom {
-            background: linear-gradient(135deg, #f64f59, #c471ed);
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
             border: none;
             padding: .9rem;
             color: white;
@@ -83,39 +89,43 @@
         }
 
         .btn-register-custom:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+            background: linear-gradient(135deg, #1e8449, #27ae60);
         }
 
         .btn-login-link {
             display: block;
-            background: #34495e;
+            background: #2c3e50;
             color: white;
             padding: .8rem;
             border-radius: 10px;
             text-align: center;
             font-weight: 600;
             transition: 0.3s;
+            text-decoration: none;
         }
 
         .btn-login-link:hover {
-            background: #2c3e50;
-            transform: translateY(-3px);
+            background: #1f2d3a;
+            transform: translateY(-2px);
         }
 
         .alert {
-            animation: fadeIn 0.5s ease-out;
+            border-radius: 10px;
+            animation: fadeIn 0.4s ease-out;
         }
     </style>
-
 </head>
+
 <body>
 
 <div class="register-container">
 
     <div class="text-center mb-4">
         <i class="fas fa-user-plus register-icon"></i>
-        <h1 class="register-title">Buat Akun Baru</h1>
+        <h1 class="register-title">Daftar Akun Baru</h1>
+        <p class="text-muted mb-0">Sistem Kesehatan Dan Posyandu</p>
     </div>
 
     {{-- SUCCESS --}}
@@ -143,19 +153,27 @@
 
         {{-- NAME --}}
         <div class="mb-3">
-            <label class="form-label"><i class="fas fa-user me-2"></i>Nama Lengkap</label>
-            <input type="text" name="name" class="form-control" value="{{ old('name') }}" required>
+            <label class="form-label">
+                <i class="fas fa-user me-2 text-success"></i>Nama Lengkap
+            </label>
+            <input type="text" name="name" class="form-control"
+                   value="{{ old('name') }}" required>
         </div>
 
         {{-- EMAIL --}}
         <div class="mb-3">
-            <label class="form-label"><i class="fas fa-envelope me-2"></i>Email</label>
-            <input type="email" name="email" class="form-control" value="{{ old('email') }}" required>
+            <label class="form-label">
+                <i class="fas fa-envelope me-2 text-success"></i>Email
+            </label>
+            <input type="email" name="email" class="form-control"
+                   value="{{ old('email') }}" required>
         </div>
 
         {{-- ROLE --}}
         <div class="mb-3">
-            <label class="form-label"><i class="fas fa-user-tag me-2"></i>Pilih Role</label>
+            <label class="form-label">
+                <i class="fas fa-user-tag me-2 text-success"></i>Pilih Role
+            </label>
             <select name="role" class="form-select" required>
                 <option value="">-- Pilih Role --</option>
                 <option value="admin">Admin</option>
@@ -166,14 +184,19 @@
 
         {{-- PASSWORD --}}
         <div class="mb-3">
-            <label class="form-label"><i class="fas fa-lock me-2"></i>Password</label>
+            <label class="form-label">
+                <i class="fas fa-lock me-2 text-success"></i>Password
+            </label>
             <input type="password" name="password" class="form-control" required>
         </div>
 
         {{-- CONFIRM --}}
         <div class="mb-4">
-            <label class="form-label"><i class="fas fa-lock me-2"></i>Konfirmasi Password</label>
-            <input type="password" name="password_confirmation" class="form-control" required>
+            <label class="form-label">
+                <i class="fas fa-lock me-2 text-success"></i>Konfirmasi Password
+            </label>
+            <input type="password" name="password_confirmation"
+                   class="form-control" required>
         </div>
 
         <button type="submit" class="btn btn-register-custom mb-3">

@@ -1,8 +1,8 @@
 <?php
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 
 class Warga extends Model
 {
@@ -27,4 +27,19 @@ class Warga extends Model
         }
         return $query;
     }
+
+    public function kaderPosyandu()
+    {
+        return $this->hasMany(KaderPosyandu::class, 'warga_id', 'warga_id');
+    }
+
+    public function layananPosyandu()
+    {
+        return $this->hasMany(
+            LayananPosyandu::class,
+            'warga_id',
+            'warga_id'
+        );
+    }
+
 }
