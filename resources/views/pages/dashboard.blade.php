@@ -2,66 +2,99 @@
 
 @section('content')
 
-{{-- HERO POSYANDU --}}
-<section class="hero-section pt-120 pb-120"
+{{-- ================= HERO SECTION ================= --}}
+<section class="pt-120 pb-120"
     style="
         background:
-        linear-gradient(135deg, rgba(22,160,133,.9), rgba(39,174,96,.9)),
-        url('https://gobleg-buleleng.desa.id/index.php/first/artikel/695-Kegiatan-Posyandu-Mawar-Putih');
-        background-size: cover;
-        background-position: center;
+        linear-gradient(135deg, rgba(16,185,129,.95), rgba(5,150,105,.95));
     ">
     <div class="container">
         <div class="row align-items-center">
-            <div class="col-lg-7">
-                <span class="badge bg-light text-success mb-3 px-3 py-2">
+
+            {{-- LEFT CONTENT --}}
+            <div class="col-lg-6">
+                <span class="badge bg-light text-success px-3 py-2 mb-3">
                     Sistem Informasi Posyandu
                 </span>
+
                 <h1 class="text-white fw-bold display-5">
                     Dashboard Posyandu Desa
                 </h1>
-                <p class="text-white mt-4 fs-5">
-                    Sistem digital terpadu untuk pencatatan kesehatan ibu dan anak,
+
+                <p class="text-white fs-5 mt-4">
+                    Sistem digital terpadu untuk pencatatan kesehatan ibu & anak,
                     pengelolaan kegiatan Posyandu, serta monitoring imunisasi
-                    secara akurat, cepat, dan transparan.
+                    secara cepat, akurat, dan transparan.
                 </p>
-                <a href="#statistik" class="main-btn btn-hover mt-4">
-                    Lihat Statistik
-                </a>
+
+                <div class="d-flex gap-3 mt-4">
+                    <a href="#statistik" class="btn btn-light btn-lg fw-semibold text-success">
+                        📊 Lihat Statistik
+                    </a>
+                    <a href="#layanan" class="btn btn-outline-light btn-lg">
+                        🚀 Layanan
+                    </a>
+                </div>
             </div>
-            <div class="col-lg-5 text-center mt-5 mt-lg-0">
-                <img class="img-fluid rounded-4 shadow-lg"
-                     src="https://images.unsplash.com/photo-1580281657521-6f6a0a5a6e6e"
-                     alt="Kegiatan Posyandu">
+
+            {{-- RIGHT SLIDER --}}
+            <div class="col-lg-6 mt-5 mt-lg-0">
+                <div id="heroCarousel" class="carousel slide shadow-lg rounded-4 overflow-hidden"
+                    data-bs-ride="carousel" data-bs-interval="3000">
+
+                    <div class="carousel-inner">
+                        @php
+                            $heroes = ['logo1.jpg.jpg','logo2.jpg.jpg','logo3,jpg.jpg','logo4.jpg.jpg','logo5.jpg.jpg'];
+                        @endphp
+
+                        @foreach ($heroes as $i => $img)
+                            <div class="carousel-item {{ $i == 0 ? 'active' : '' }}">
+                                <img src="{{ asset('assets-guest/images/hero/'.$img) }}"
+                                    class="d-block w-100"
+                                    style="height:420px; object-fit:cover;"
+                                    alt="Posyandu {{ $i+1 }}">
+                            </div>
+                        @endforeach
+                    </div>
+
+                    <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon"></span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon"></span>
+                    </button>
+                </div>
             </div>
+
         </div>
     </div>
 </section>
 
-{{-- STATISTIK --}}
-<section id="statistik" class="pt-120 pb-100"
-    style="background: linear-gradient(180deg, #ecfdf5, #ffffff);">
+{{-- ================= STATISTIK ================= --}}
+<section id="statistik" class="pt-120 pb-100" style="background:#f0fdf4;">
     <div class="container">
-        <div class="section-title text-center mb-70">
-            <h2 class="text-success">Ringkasan Data Posyandu</h2>
-            <p>Gambaran umum layanan Posyandu Desa</p>
+
+        <div class="text-center mb-70">
+            <h2 class="fw-bold text-success">Ringkasan Statistik Posyandu</h2>
+            <p class="text-muted">Data real-time pelayanan kesehatan desa</p>
         </div>
 
         <div class="row g-4">
             @php
                 $stats = [
-                    ['icon'=>'users','color'=>'success','title'=>'Warga Terdaftar','value'=>'1.250'],
-                    ['icon'=>'user-nurse','color'=>'primary','title'=>'Kader Posyandu','value'=>'18'],
-                    ['icon'=>'calendar-check','color'=>'warning','title'=>'Jadwal Aktif','value'=>'12'],
-                    ['icon'=>'syringe','color'=>'danger','title'=>'Data Imunisasi','value'=>'860'],
+                    ['icon'=>'users','title'=>'Warga Terdaftar','value'=>'1.250','color'=>'success'],
+                    ['icon'=>'user-nurse','title'=>'Kader Posyandu','value'=>'18','color'=>'primary'],
+                    ['icon'=>'calendar-check','title'=>'Jadwal Aktif','value'=>'12','color'=>'warning'],
+                    ['icon'=>'syringe','title'=>'Data Imunisasi','value'=>'860','color'=>'danger'],
                 ];
             @endphp
 
-            @foreach($stats as $s)
+            @foreach ($stats as $s)
             <div class="col-md-3">
-                <div class="card border-0 shadow-sm text-center p-4 h-100"
-                     style="border-top:5px solid var(--bs-{{ $s['color'] }});">
-                    <i class="fas fa-{{ $s['icon'] }} fa-3x text-{{ $s['color'] }} mb-3"></i>
+                <div class="card border-0 shadow-sm text-center p-4 h-100">
+                    <div class="mb-3">
+                        <i class="fas fa-{{ $s['icon'] }} fa-3x text-{{ $s['color'] }}"></i>
+                    </div>
                     <h2 class="fw-bold">{{ $s['value'] }}</h2>
                     <p class="mb-0">{{ $s['title'] }}</p>
                 </div>
@@ -71,99 +104,59 @@
     </div>
 </section>
 
-{{-- PROFIL POSYANDU --}}
-<section class="pt-120 pb-100">
+{{-- ================= LAYANAN ================= --}}
+<section id="layanan" class="pt-120 pb-120">
     <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-6">
-                <img class="img-fluid rounded-4 shadow"
-                     src="https://images.unsplash.com/photo-1603398938378-e54b5f8d2b3b"
-                     alt="Profil Posyandu">
-            </div>
-            <div class="col-lg-6 mt-5 mt-lg-0">
-                <h2 class="text-success fw-bold">
-                    Profil Posyandu Desa
-                </h2>
-                <p class="mt-3">
-                    Posyandu Desa merupakan layanan kesehatan berbasis masyarakat
-                    yang berfokus pada pemantauan tumbuh kembang balita,
-                    kesehatan ibu hamil, serta pencegahan penyakit melalui imunisasi.
-                </p>
-                <ul class="list-unstyled mt-4">
-                    <li class="mb-2">
-                        <i class="fas fa-check-circle text-success me-2"></i>
-                        Pelayanan kesehatan rutin
-                    </li>
-                    <li class="mb-2">
-                        <i class="fas fa-check-circle text-success me-2"></i>
-                        Kader terlatih & bersertifikat
-                    </li>
-                    <li class="mb-2">
-                        <i class="fas fa-check-circle text-success me-2"></i>
-                        Pendataan terintegrasi digital
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</section>
 
-{{-- MENU LAYANAN --}}
-<section class="pt-120 pb-120"
-    style="background: linear-gradient(180deg, #f0fdf4, #ffffff);">
-    <div class="container">
-        <div class="section-title text-center mb-70">
-            <h2 class="text-success">Layanan Utama Posyandu</h2>
-            <p>Akses cepat ke modul inti Posyandu</p>
+        <div class="text-center mb-70">
+            <h2 class="fw-bold text-success">Layanan Utama Posyandu</h2>
+            <p class="text-muted">Akses cepat ke modul inti</p>
         </div>
 
         <div class="row g-4">
             @php
-                $menus = [
-                    ['title'=>'Data Posyandu','img'=>'1576765607924-3f7b0f1a02a3','desc'=>'Kelola data Posyandu dan dokumentasi.'],
-                    ['title'=>'Jadwal & Layanan','img'=>'1588776814546-1f4d0bca2d0a','desc'=>'Jadwal kegiatan dan layanan balita.'],
-                    ['title'=>'Imunisasi','img'=>'1603398938378-e54b5f8d2b3b','desc'=>'Riwayat imunisasi dan kartu digital.'],
+                $services = [
+                    ['icon'=>'hospital','title'=>'Data Posyandu','desc'=>'Kelola data posyandu & dokumentasi'],
+                    ['icon'=>'baby','title'=>'Balita & Ibu','desc'=>'Pantau tumbuh kembang balita'],
+                    ['icon'=>'calendar-alt','title'=>'Jadwal Kegiatan','desc'=>'Manajemen jadwal posyandu'],
+                    ['icon'=>'syringe','title'=>'Imunisasi','desc'=>'Riwayat imunisasi digital'],
+                    ['icon'=>'file-medical','title'=>'Laporan','desc'=>'Rekap & laporan otomatis'],
+                    ['icon'=>'user-shield','title'=>'Admin','desc'=>'Manajemen pengguna & akses'],
                 ];
             @endphp
 
-            @foreach($menus as $m)
-            <div class="col-lg-4">
-                <div class="card h-100 border-0 shadow-sm">
-                    <img class="card-img-top"
-                         src="https://images.unsplash.com/photo-{{ $m['img'] }}"
-                         alt="{{ $m['title'] }}">
-                    <div class="card-body">
-                        <h4 class="text-success">{{ $m['title'] }}</h4>
-                        <p>{{ $m['desc'] }}</p>
-                        <a href="#" class="main-btn btn-hover btn-sm">
-                            Buka Modul
-                        </a>
-                    </div>
+            @foreach ($services as $srv)
+            <div class="col-lg-4 col-md-6">
+                <div class="card h-100 border-0 shadow-sm p-4 text-center">
+                    <i class="fas fa-{{ $srv['icon'] }} fa-3x text-success mb-3"></i>
+                    <h5 class="fw-bold">{{ $srv['title'] }}</h5>
+                    <p class="text-muted">{{ $srv['desc'] }}</p>
+                    <a href="#" class="btn btn-outline-success btn-sm mt-auto">
+                        Buka Modul →
+                    </a>
                 </div>
             </div>
             @endforeach
         </div>
+
     </div>
 </section>
 
-{{-- CTA --}}
+{{-- ================= CTA ================= --}}
 <section class="pt-120 pb-120 text-center"
     style="
         background:
-        linear-gradient(135deg, rgba(39,174,96,.95), rgba(22,160,133,.95)),
-        url('https://images.unsplash.com/photo-1588776814546-1f4d0bca2d0a');
-        background-size: cover;
+        linear-gradient(135deg, rgba(5,150,105,.95), rgba(16,185,129,.95));
     ">
     <div class="container">
         <h2 class="text-white fw-bold">
             Bersama Posyandu, Wujudkan Generasi Sehat
         </h2>
-        <p class="text-white mt-3 fs-5">
-            Sistem digital membantu kader dan desa
-            memberikan pelayanan kesehatan terbaik.
+        <p class="text-white fs-5 mt-3">
+            Digitalisasi pelayanan demi kesehatan ibu dan anak
         </p>
-        <a href="#" class="main-btn btn-hover mt-4">
-            Mulai Kelola Data
+        <a href="#" class="btn btn-light btn-lg fw-semibold text-success mt-4">
+            🚀 Mulai Kelola Data
         </a>
     </div>
 </section>

@@ -20,7 +20,7 @@ class UserController extends Controller
         ];
 
         $data['dataUser'] = User::filter($request, $filterableColumns)
-            ->paginate(5)
+            ->paginate(6)
             ->withQueryString();
 
         return view('pages.user.index', $data);

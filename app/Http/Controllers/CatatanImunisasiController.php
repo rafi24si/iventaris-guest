@@ -23,7 +23,7 @@ class CatatanImunisasiController extends Controller
         }
 
         return view('catatan_imunisasi.index', [
-            'imunisasis' => $query->latest('tanggal')->paginate(10)->withQueryString(),
+            'imunisasis' => $query->latest('tanggal')->paginate(6)->withQueryString(),
             'wargas'     => Warga::orderBy('nama')->get(),
         ]);
     }

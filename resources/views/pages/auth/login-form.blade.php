@@ -124,7 +124,7 @@
         {{-- LOGO --}}
         <div class="logo-box">
             <a href="{{ route('dashboard') }}" class="navbar-brand mx-auto text-center">
-                <img src="{{ asset('assets-guest/images/logo.png') }}" alt="Logo">
+                <img src="{{ asset('assets-guest/images/logo1.png') }}" alt="Logo" height="200">
             </a>
         </div>
 

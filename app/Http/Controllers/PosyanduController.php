@@ -34,7 +34,7 @@ class PosyanduController extends Controller
         }
 
         return view('pages.posyandu.index', [
-            'posyandus' => $query->latest()->paginate(10)->withQueryString()
+            'posyandus' => $query->latest()->paginate(6)->withQueryString()
         ]);
     }
 

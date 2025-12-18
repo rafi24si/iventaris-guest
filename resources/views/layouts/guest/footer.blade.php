@@ -12,8 +12,8 @@
                 <div class="footer-widget">
                     <div class="logo mb-3">
                         <a href="{{ route('dashboard') }}">
-                            <img src="{{ asset('assets-guest/images/logo.png') }}"
-                                 alt="logo" height="80" class="me-2">
+                            <img src="{{ asset('assets-guest/images/logo1.png') }}"
+                                 alt="logo" height="220" class="me-2">
                         </a>
                     </div>
                     <p style="opacity: .9;">

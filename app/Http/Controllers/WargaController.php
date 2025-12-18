@@ -14,7 +14,7 @@ class WargaController extends Controller
         $filterableColumns = ['jenis_kelamin'];
 
         $dataWarga = Warga::filter($request, $filterableColumns)
-        ->paginate(5)
+        ->paginate(6)
         ->withQueryString();
         return view('pages.warga.index', compact('dataWarga'));
 

@@ -29,7 +29,7 @@ class KaderPosyanduController extends Controller
         }
 
         return view('kader_posyandu.index', [
-            'kaders'    => $query->latest()->paginate(10)->withQueryString(),
+            'kaders'    => $query->latest()->paginate(6)->withQueryString(),
             'posyandus' => Posyandu::orderBy('nama')->get(),
         ]);
     }

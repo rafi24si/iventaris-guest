@@ -25,7 +25,7 @@ class JadwalPosyanduController extends Controller
         }
 
         return view('jadwal_posyandu.index', [
-            'jadwals'   => $query->latest('tanggal')->paginate(10)->withQueryString(),
+            'jadwals'   => $query->latest('tanggal')->paginate(6)->withQueryString(),
             'posyandus' => Posyandu::orderBy('nama')->get(),
         ]);
     }

@@ -8,7 +8,7 @@
 
                         {{-- LOGO --}}
                         <a href="{{ route('dashboard') }}" class="navbar-brand mx-auto text-center">
-                            <img src="{{ asset('assets-guest/images/logo.png') }}" alt="Logo" height="45">
+                            <img src="{{ asset('assets-guest/images/logo1.png') }}" alt="Logo" height="100">
                         </a>
 
                         {{-- MOBILE BUTTON --}}
